@@ -264,6 +264,10 @@ func (l *Loader) LoadTOMLBytes(conf interface{}, src []byte) error {
 	return loadConfigBytes(conf, src, nil, toml.Unmarshal)
 }
 
+func (l *Loader) LoadWithFunc(conf interface{}, unmarshal unmarshaler, configPaths ...string) error {
+	return loadWithFunc(conf, configPaths, l.replacer, unmarshal)
+}
+
 // LoadWithEnv loads YAML files with Env
 // replace {{ env "ENV" }} to os.Getenv("ENV")
 // if you set default value then {{ env "ENV" "default" }}
